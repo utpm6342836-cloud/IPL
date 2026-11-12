@@ -35,6 +35,8 @@ STEP の名前と番号は、社内で共有済みのフロー（STEP0 目的設
 | [docs/91_呼び方の決め方.md](docs/91_呼び方の決め方.md) | STEP 名を共有済みフローに統一した理由。共有済みフローの図について検討してほしい点（F1〜F7） |
 | [docs/92_フロー検証の進め方.md](docs/92_フロー検証の進め方.md) | フローが正しいかを確かめる6つの検証と、v1.1 での実施結果 |
 | [docs/93_体制・品質・蓄積の論点.md](docs/93_体制・品質・蓄積の論点.md) | 品質の保ち方、知見のため方、社内の他の取り組みとの連携の案 |
+| [docs/95_AIの品質を保つ仕組み.md](docs/95_AIの品質を保つ仕組み.md) | AIの回答の品質を5つの層で保つ仕組み（テストセット、チェック役、月次の点検） |
+| [docs/96_知見を回収して標準フローに戻す仕組み.md](docs/96_知見を回収して標準フローに戻す仕組み.md) | IPL担当の相談ログから標準フローを改訂する流れ |
 | [docs/99_出典と改訂履歴.md](docs/99_出典と改訂履歴.md) | 出典へのアクセス経路、変更点、未確認事項 |
 | [tools/check_flow.py](tools/check_flow.py) | 手順書の構造チェック（`python3 tools/check_flow.py`） |
 | [sharing/](sharing/) | SharePoint 構成案、動画シリーズ構成案 |
@@ -48,6 +50,8 @@ STEP の名前と番号は、社内で共有済みのフロー（STEP0 目的設
 | [deliverables/IPL標準フロー_手順書_v1.1.docx](deliverables/IPL標準フロー_手順書_v1.1.docx) | 文書として残す手順書（第1部 利用者向け、第2部 付録）。SharePoint・Copilot Studio のナレッジにも使える | tools/build/build_manual.py |
 | [deliverables/IPL標準フロー_ワークシート集_v1.1.xlsx](deliverables/IPL標準フロー_ワークシート集_v1.1.xlsx) | 各STEPで記入するシート（16シート、選択リスト付き）。案件ごとにコピーして使う | tools/build/workbook.py |
 | [deliverables/IPL標準フロー_修正リスト.xlsx](deliverables/IPL標準フロー_修正リスト.xlsx) | 手順書などへの修正案を誰でも書き込める一覧（SharePoint に置いて共同編集）。判断結果と理由を残し、同じ議論のくり返しを防ぐ | tools/build/revision_list.py |
+| [deliverables/IPL標準フロー_推進計画_2026年度.xlsx](deliverables/IPL標準フロー_推進計画_2026年度.xlsx) | 今年度末までの推進計画（週単位のガントチャート）、マイルストーンと進める条件、ヒアリング計画と質問、リスク | tools/build/plan.py |
+| [deliverables/IPL標準フロー_IPL担当_相談ログ.xlsx](deliverables/IPL標準フロー_IPL担当_相談ログ.xlsx) | IPL担当が受けた相談の記録とSTEP別の自動集計（知見の回収用） | tools/build/consult_log.py |
 | [deliverables/IPL標準フロー_フローチャート_v1.1.png](deliverables/IPL標準フロー_フローチャート_v1.1.png) | フローチャートの画像（Word・SharePointページ貼り付け用） | スライド4枚目を書き出し |
 
 ツールの使い分け：説明と図は PowerPoint、読んで残す手順書は Word、記入して使うものは Excel。フローチャートは PowerPoint の図形とコネクタで描いてあり、進む線（実線）は箱に結び付いているので、箱を動かすと線が追従する。戻る線（点線）は自由線のため、箱を動かしたら手で直す。
