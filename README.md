@@ -40,6 +40,19 @@ STEP の名前と番号は、社内で共有済みのフロー（STEP0 目的設
 | [sharing/](sharing/) | SharePoint 構成案、動画シリーズ構成案 |
 | [copilot-studio/](copilot-studio/) | エージェントの指示文、ナレッジ設計、会話の入口、テスト質問 |
 
+## 配布用ファイル（Office）
+
+| ファイル | 用途 | 作り方 |
+| --- | --- | --- |
+| [deliverables/IPL標準フロー_説明資料_v1.1.pptx](deliverables/IPL標準フロー_説明資料_v1.1.pptx) | 説明会用のスライド（18枚、発表者メモ付き）。4枚目がフローチャートの正本 | tools/build/deck.js → tools/build/flow.py |
+| [deliverables/IPL標準フロー_手順書_v1.1.docx](deliverables/IPL標準フロー_手順書_v1.1.docx) | 文書として残す手順書（第1部 利用者向け、第2部 付録）。SharePoint・Copilot Studio のナレッジにも使える | tools/build/build_manual.py |
+| [deliverables/IPL標準フロー_ワークシート集_v1.1.xlsx](deliverables/IPL標準フロー_ワークシート集_v1.1.xlsx) | 各STEPで記入するシート（16シート、選択リスト付き）。案件ごとにコピーして使う | tools/build/workbook.py |
+| [deliverables/IPL標準フロー_フローチャート_v1.1.png](deliverables/IPL標準フロー_フローチャート_v1.1.png) | フローチャートの画像（Word・SharePointページ貼り付け用） | スライド4枚目を書き出し |
+
+ツールの使い分け：説明と図は PowerPoint、読んで残す手順書は Word、記入して使うものは Excel。フローチャートは PowerPoint の図形とコネクタで描いてあり、進む線（実線）は箱に結び付いているので、箱を動かすと線が追従する。戻る線（点線）は自由線のため、箱を動かしたら手で直す。
+
+Word の目次は、ファイルを開いたときに「フィールドを更新しますか」と聞かれたら「はい」を選ぶと表示される（または目次を右クリック →「フィールドの更新」）。
+
 ## 使う前の注意
 
 1. 発明塾（TechnoProducer 株式会社）の資料には「無断引用・複製・編集・配布を禁じる」旨の表示があります。本手順書は考え方を自分の言葉で組み込んだもので、原資料の文章・図は転載していません。それでも、社内で広く共有する前と Copilot Studio のナレッジに入れる前に、利用条件を確認してください（docs/99 の U1）。
