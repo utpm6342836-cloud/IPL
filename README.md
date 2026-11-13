@@ -1,9 +1,9 @@
-# IPL標準フロー v1.1
+# IPL標準フロー v1.2
 
 事業部門（SBU）・研究開発部門の一人ひとりが、**自分で IPランドスケープ（IPL）を進められるようにする**ための手順書一式です。
-STEP の名前と番号は、社内で共有済みのフロー（STEP0 目的設定 〜 STEP8 学習・標準化）に合わせています。発明塾の手法（エッジ情報・ファーストユーザー・企画骨子・課題‐解決ロジックツリー・仮説を持ち込むヒアリングなど）は、各 STEP の中のやり方として使っています。
+STEP の名前と番号は、社内で共有するフロー図（2026-11-13 版：STEP0 お題設定 〜 STEP8 依頼者が意思決定）に合わせています。発明塾の手法（エッジ情報・ファーストユーザー・企画骨子・課題‐解決ロジックツリー・仮説を持ち込むヒアリングなど）は、各 STEP の中のやり方として使っています。
 
-- 版：v1.1（2026-11-10）たたき台・社内レビュー前
+- 版：v1.2（2026-11-13）たたき台・社内レビュー前
 - 体制の想定：2026年度は IPL担当が手順書を使って伴走し、2027年度からは手順書を読み込んだ AIエージェントとチャットしながら進める
 
 ## 利用者（事業・研究の担当者）が読むもの
@@ -17,22 +17,22 @@ STEP の名前と番号は、社内で共有済みのフロー（STEP0 目的設
 
 | STEP | 手順書 |
 | --- | --- |
-| 0 目的設定 | [STEP0_目的設定.md](docs/steps/STEP0_目的設定.md) |
+| 0 お題設定 | [STEP0_お題設定.md](docs/steps/STEP0_お題設定.md) |
 | 1 顧客価値仮説（売れる） | [STEP1_顧客価値仮説.md](docs/steps/STEP1_顧客価値仮説.md) |
-| 2 事業仮説（勝てる・儲かる・できそう） | [STEP2_事業仮説.md](docs/steps/STEP2_事業仮説.md) |
-| 3 調査設計 | [STEP3_調査設計.md](docs/steps/STEP3_調査設計.md) |
-| 4 情報探索 | [STEP4_情報探索.md](docs/steps/STEP4_情報探索.md) |
-| 5 構造化・分析 | [STEP5_構造化・分析.md](docs/steps/STEP5_構造化・分析.md) |
-| 6 仮説検証・反証 | [STEP6_仮説検証・反証.md](docs/steps/STEP6_仮説検証・反証.md) |
-| 7 依頼者が意思決定 | [STEP7_意思決定.md](docs/steps/STEP7_意思決定.md) |
-| 8 学習・標準化 | [STEP8_学習・標準化.md](docs/steps/STEP8_学習・標準化.md) |
+| 2 事業仮説（勝てる・儲かる） | [STEP2_事業仮説.md](docs/steps/STEP2_事業仮説.md) |
+| 3 調査目的設定 | [STEP3_調査目的設定.md](docs/steps/STEP3_調査目的設定.md) |
+| 4 調査設計 | [STEP4_調査設計.md](docs/steps/STEP4_調査設計.md) |
+| 5 情報探索 | [STEP5_情報探索.md](docs/steps/STEP5_情報探索.md) |
+| 6 構造化・分析 | [STEP6_構造化・分析.md](docs/steps/STEP6_構造化・分析.md) |
+| 7 仮説検証・反証 | [STEP7_仮説検証・反証.md](docs/steps/STEP7_仮説検証・反証.md) |
+| 8 依頼者が意思決定（振り返りを含む） | [STEP8_意思決定.md](docs/steps/STEP8_意思決定.md) |
 
 ## 標準化チーム・IPL担当が読むもの
 
 | ファイル | 中身 |
 | --- | --- |
 | [docs/90_発明塾手法との対応.md](docs/90_発明塾手法との対応.md) | 発明塾の言葉・考え方と STEP の対応 |
-| [docs/91_呼び方の決め方.md](docs/91_呼び方の決め方.md) | STEP 名を共有済みフローに統一した理由。共有済みフローの図について検討してほしい点（F1〜F7） |
+| [docs/91_呼び方の決め方.md](docs/91_呼び方の決め方.md) | 2026-11-13 版フローの評価（残す点・補う点）と、STEP名を社内のフロー図に合わせる理由 |
 | [docs/92_フロー検証の進め方.md](docs/92_フロー検証の進め方.md) | フローが正しいかを確かめる6つの検証と、v1.1 での実施結果 |
 | [docs/93_体制・品質・蓄積の論点.md](docs/93_体制・品質・蓄積の論点.md) | 品質の保ち方、知見のため方、社内の他の取り組みとの連携の案 |
 | [docs/95_AIの品質を保つ仕組み.md](docs/95_AIの品質を保つ仕組み.md) | AIの回答の品質を5つの層で保つ仕組み（テストセット、チェック役、月次の点検） |
@@ -46,13 +46,13 @@ STEP の名前と番号は、社内で共有済みのフロー（STEP0 目的設
 
 | ファイル | 用途 | 作り方 |
 | --- | --- | --- |
-| [deliverables/IPL標準フロー_説明資料_v1.1.pptx](deliverables/IPL標準フロー_説明資料_v1.1.pptx) | 説明会用のスライド（18枚、発表者メモ付き）。4枚目がフローチャートの正本 | tools/build/deck.js → tools/build/flow.py |
-| [deliverables/IPL標準フロー_手順書_v1.1.docx](deliverables/IPL標準フロー_手順書_v1.1.docx) | 文書として残す手順書（第1部 利用者向け、第2部 付録）。SharePoint・Copilot Studio のナレッジにも使える | tools/build/build_manual.py |
-| [deliverables/IPL標準フロー_ワークシート集_v1.1.xlsx](deliverables/IPL標準フロー_ワークシート集_v1.1.xlsx) | 各STEPで記入するシート（16シート、選択リスト付き）。案件ごとにコピーして使う | tools/build/workbook.py |
+| [deliverables/IPL標準フロー_説明資料_v1.2.pptx](deliverables/IPL標準フロー_説明資料_v1.2.pptx) | 説明会用のスライド（19枚、発表者メモ付き）。4枚目がフローチャートの正本 | tools/build/deck.js → tools/build/flow.py |
+| [deliverables/IPL標準フロー_手順書_v1.2.docx](deliverables/IPL標準フロー_手順書_v1.2.docx) | 文書として残す手順書（第1部 利用者向け、第2部 付録）。SharePoint・Copilot Studio のナレッジにも使える | tools/build/build_manual.py |
+| [deliverables/IPL標準フロー_ワークシート集_v1.2.xlsx](deliverables/IPL標準フロー_ワークシート集_v1.2.xlsx) | 各STEPで記入するシート（17シート、選択リスト付き）。案件ごとにコピーして使う | tools/build/workbook.py |
 | [deliverables/IPL標準フロー_修正リスト.xlsx](deliverables/IPL標準フロー_修正リスト.xlsx) | 手順書などへの修正案を誰でも書き込める一覧（SharePoint に置いて共同編集）。判断結果と理由を残し、同じ議論のくり返しを防ぐ | tools/build/revision_list.py |
 | [deliverables/IPL標準フロー_推進計画_2026年度.xlsx](deliverables/IPL標準フロー_推進計画_2026年度.xlsx) | 今年度末までの推進計画（週単位のガントチャート）、マイルストーンと進める条件、ヒアリング計画と質問、リスク | tools/build/plan.py |
 | [deliverables/IPL標準フロー_IPL担当_相談ログ.xlsx](deliverables/IPL標準フロー_IPL担当_相談ログ.xlsx) | IPL担当が受けた相談の記録とSTEP別の自動集計（知見の回収用） | tools/build/consult_log.py |
-| [deliverables/IPL標準フロー_フローチャート_v1.1.png](deliverables/IPL標準フロー_フローチャート_v1.1.png) | フローチャートの画像（Word・SharePointページ貼り付け用） | スライド4枚目を書き出し |
+| [deliverables/IPL標準フロー_フローチャート_v1.2.png](deliverables/IPL標準フロー_フローチャート_v1.2.png) | フローチャートの画像（Word・SharePointページ貼り付け用） | スライド4枚目を書き出し |
 
 ツールの使い分け：説明と図は PowerPoint、読んで残す手順書は Word、記入して使うものは Excel。フローチャートは PowerPoint の図形とコネクタで描いてあり、進む線（実線）は箱に結び付いているので、箱を動かすと線が追従する。戻る線（点線）は自由線のため、箱を動かしたら手で直す。
 

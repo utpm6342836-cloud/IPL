@@ -118,96 +118,88 @@ def poly(name, pts, color=AMBER, dash=True, arrow=True, width=1.5):
     return s
 
 
-# ---- geometry (inches)
-ROW_Y, ROW_H = 3.35, 1.0
-SW, GAP = 1.12, 0.27
-xs = {}
-x = 0.4
-start = None
+# ---- geometry (inches): row1 STEP0->3 (left to right), row2 STEP4->7 (right to left), row3 STEP8
+COLS = [0.85, 3.95, 7.05, 10.15]
+BW, BH = 2.4, 0.9
+R1, R2, R3 = 1.5, 3.6, 5.55
 
-# loop band first (behind)
-band = sh.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(5.62), Inches(2.95), Inches(7.43), Inches(1.75))
+
+def cx(i):
+    return COLS[i] + BW / 2
+
+
+band = sh.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.7), Inches(3.38), Inches(12.05), Inches(1.82))
 band.name = "検証ループ枠"
 band.adjustments[0] = 0.08
 band.fill.solid(); band.fill.fore_color.rgb = RGBColor(0xF6, 0xF9, 0xFA)
 band.line.color.rgb = RGBColor(0xA9, 0xC7, 0xCF); band.line.width = Pt(1); band.line.dash_style = MSO_LINE.ROUND_DOT
 band.shadow.inherit = False
-label("検証ループ見出し", 5.75, 2.99, 3.5, 0.28, "検証ループ（STEP3〜STEP6）", size=10, color=TEAL, bold=True)
+label("検証ループ見出し", 9.4, 4.93, 3.2, 0.24, "検証ループ（STEP4〜STEP7）", size=10, color=TEAL, bold=True, align=PP_ALIGN.RIGHT)
 
-start = box("開始", MSO_SHAPE.ROUNDED_RECTANGLE, 0.4, ROW_Y + 0.15, 0.95, 0.7, ["個別案件", "の依頼"], fill=DK, line=DK, fcolor=WHITE, size=10)
-start.adjustments[0] = 0.5
-names = [
-    ("STEP0", ["目的設定"]),
-    ("STEP1", ["顧客価値仮説", "（売れる）"]),
-    ("STEP2", ["事業仮説", "（勝てる・儲かる", "・できそう）"]),  # small font
-    ("STEP3", ["調査設計"]),
-    ("STEP4", ["情報探索"]),
-    ("STEP5", ["構造化・分析"]),
-    ("STEP6", ["仮説検証", "・反証"]),
+def step(name, col, y, lines, size=11):
+    b = box(name, MSO_SHAPE.ROUNDED_RECTANGLE, COLS[col], y, BW, BH, lines, size=size)
+    b.adjustments[0] = 0.15
+    return b
+
+S0 = step("STEP0", 0, R1, ["STEP0", "お題設定"])
+S1 = step("STEP1", 1, R1, ["STEP1", "顧客価値仮説", "（売れる）"])
+S2 = step("STEP2", 2, R1, ["STEP2", "事業仮説", "（勝てる・儲かる）"])
+S3 = step("STEP3", 3, R1, ["STEP3", "調査目的設定"])
+S4 = step("STEP4", 3, R2, ["STEP4", "調査設計"])
+S5 = step("STEP5", 2, R2, ["STEP5", "情報探索"])
+S6 = step("STEP6", 1, R2, ["STEP6", "構造化・分析"])
+S7 = step("STEP7", 0, R2, ["STEP7", "仮説検証・反証"])
+S8 = step("STEP8", 0, R3, ["STEP8", "依頼者が意思決定", "（Go / No Go）"])
+MGT = box("経営層へ提言", MSO_SHAPE.ROUNDED_RECTANGLE, COLS[1], R3 + 0.1, BW, 0.7, ["経営層へ提言", "（必要に応じて）"], fill=WHITE, line=GRAY, fcolor=TXT, dash=True, size=10)
+
+# forward (glued). sites: 0 top, 1 left, 2 bottom, 3 right
+connect("進む_STEP0-STEP1", S0, 3, S1, 1)
+connect("進む_STEP1-STEP2", S1, 3, S2, 1)
+connect("進む_STEP2-STEP3", S2, 3, S3, 1)
+connect("進む_STEP3-STEP4", S3, 2, S4, 0)
+connect("進む_STEP4-STEP5", S4, 1, S5, 3)
+connect("進む_STEP5-STEP6", S5, 1, S6, 3)
+connect("進む_STEP6-STEP7", S6, 1, S7, 3)
+connect("進む_STEP7-STEP8", S7, 2, S8, 0)
+connect("任意_STEP8-経営層", S8, 3, MGT, 1, color=GRAY, dash=True)
+label("判断ラベル", cx(0) + 0.12, 5.24, 3.0, 0.26, "判断に足るFactがそろった", size=10, color=DK, bold=True)
+
+# feedback from STEP7 top to STEP1 / STEP2 (proposal) / STEP3
+top7 = R2
+bot1 = R1 + BH
+x7 = [COLS[0] + 0.35, COLS[0] + 1.0, COLS[0] + 1.65]
+lanes = [
+    (2.70, x7[0], COLS[1] + 0.5, AMBER, "顧客価値が弱い → STEP1へ", "STEP1"),
+    (2.95, x7[1], COLS[2] + 0.5, GRAY, "事業仮説が弱い → STEP2へ（提案）", "STEP2"),
+    (3.20, x7[2], COLS[3] + 0.5, AMBER, "調査目的とずれる → STEP3へ", "STEP3"),
 ]
-boxes = []
-x = 1.62
-for nm, sub in names:
-    b = box(nm, MSO_SHAPE.ROUNDED_RECTANGLE, x, ROW_Y, SW, ROW_H, [nm] + sub, size=(8.5 if nm == "STEP2" else 10))
-    b.adjustments[0] = 0.12
-    boxes.append(b)
-    xs[nm] = x + SW / 2
-    x += SW + GAP
+for y, xs_, xt, col, t, tgt in lanes:
+    poly(f"戻る_STEP7-{tgt}", [(xs_, top7), (xs_, y), (xt, y), (xt, bot1)], color=col)
+    if tgt == "STEP3":
+        label(f"戻るラベル_{tgt}", xt - 2.75, y - 0.27, 2.6, 0.25, t, size=10, color=AMBER, bold=True, align=PP_ALIGN.RIGHT)
+    else:
+        label(f"戻るラベル_{tgt}", xt + 0.12, y - 0.27, 3.4, 0.25, t, size=10, color=(GRAY if col == GRAY else AMBER), bold=(col != GRAY))
 
-D = box("判断", MSO_SHAPE.DIAMOND, 11.4, ROW_Y - 0.15, 1.5, 1.3, ["判断に足る", "Factは", "そろった？"], fill=WHITE, line=DK, size=9)
-DX = 11.4 + 0.75
+# Fact shortage: STEP7 bottom -> below row2 -> STEP4 bottom
+fx = COLS[0] + 2.05
+poly("戻る_STEP7-STEP4", [(fx, R2 + BH), (fx, 4.8), (cx(3), 4.8), (cx(3), R2 + BH)], color=AMBER)
+label("戻るラベル_STEP4", 3.6, 4.85, 5.0, 0.26, "Factが不足 → STEP4で調査設計を見直す", size=10, color=AMBER, bold=True)
 
-# forward connectors (glued). sites: 0 top, 1 left, 2 bottom, 3 right
-connect("進む_開始-STEP0", start, 3, boxes[0], 1)
-for i in range(len(boxes) - 1):
-    connect(f"進む_{names[i][0]}-{names[i+1][0]}", boxes[i], 3, boxes[i + 1], 1)
-connect("進む_STEP6-判断", boxes[-1], 3, D, 1)
-
-# lower row
-S7 = box("STEP7", MSO_SHAPE.ROUNDED_RECTANGLE, 11.4, 5.1, 1.5, 0.95, ["STEP7", "依頼者が意思決定", "（Go / No Go）"], fill=LT, size=10)
-S7.adjustments[0] = 0.12
-S8 = box("STEP8", MSO_SHAPE.ROUNDED_RECTANGLE, 8.8, 5.1, 2.0, 0.95, ["STEP8", "学習・標準化", "（振り返り・ノウハウ集）"], fill=LT, size=10)
-S8.adjustments[0] = 0.12
-END = box("横展開", MSO_SHAPE.ROUNDED_RECTANGLE, 6.45, 5.22, 1.75, 0.7, ["次の案件へ", "横展開"], fill=DK, line=DK, fcolor=WHITE, size=10)
-END.adjustments[0] = 0.5
-MGT = box("経営層へ提言", MSO_SHAPE.ROUNDED_RECTANGLE, 11.4, 6.3, 1.5, 0.6, ["経営層へ提言", "（必要に応じて）"], fill=WHITE, line=GRAY, fcolor=TXT, dash=True, size=9)
-
-connect("進む_判断-STEP7", D, 2, S7, 0)
-connect("進む_STEP7-STEP8", S7, 1, S8, 3)
-connect("進む_STEP8-横展開", S8, 1, END, 3)
-connect("任意_STEP7-経営層", S7, 2, MGT, 0, color=GRAY, dash=True)
-label("Yesラベル", 12.22, 4.6, 0.6, 0.3, "Yes", size=11, color=DK, bold=True)
-
-# feedback trunk + branches (free lines)
-TOP_Y = ROW_Y - 0.15  # diamond top
-poly("戻る_幹線", [(DX, TOP_Y), (DX, 1.55)], arrow=False)
-label("Noラベル", DX + 0.08, 2.75, 0.5, 0.3, "No", size=11, color=AMBER, bold=True)
-branches = [
-    (2.75, "STEP3", "Factが不足 → STEP3で調査設計を見直す", AMBER, True),
-    (2.35, "STEP2", "事業仮説が弱い → STEP2（提案：共有済みの図にはない）", GRAY, True),
-    (1.95, "STEP1", "顧客価値が弱い → STEP1へ", AMBER, True),
-    (1.55, "STEP0", "目的がずれた → STEP0へ（依頼者と相談し直す）", AMBER, True),
-]
-for y, tgt, t, col, dash in branches:
-    poly(f"戻る_{tgt}", [(DX, y), (xs[tgt], y), (xs[tgt], ROW_Y)], color=col, dash=dash)
-    label(f"戻るラベル_{tgt}", xs[tgt] + 0.12, y - 0.3, 6.5, 0.28, t, size=10, color=(GRAY if col == GRAY else AMBER), bold=(col != GRAY))
-
-# back-to-start (lateral deployment)
-poly("戻る_横展開-開始", [(6.45, 5.57), (0.875, 5.57), (0.875, ROW_Y + 0.85)], color=DK, dash=True)
-label("横展開ラベル", 1.05, 5.63, 5.0, 0.28, "知見を次の案件・IPL活動に生かす", size=10, color=DK)
+# new investigation: STEP8 left -> STEP0 left
+poly("戻る_STEP8-STEP0", [(COLS[0], R3 + BH / 2), (0.5, R3 + BH / 2), (0.5, R1 + BH / 2), (COLS[0], R1 + BH / 2)], color=DK)
+label("新たな調査ラベル", 0.14, 2.45, 0.3, 1.35, "新\nた\nな\n調\n査\nへ", size=10, color=DK, bold=True, align=PP_ALIGN.CENTER)
 
 # notes and legend
-label("注記1", 1.05, 4.5, 5.0, 0.3, "※目的に応じてSTEPを軽く・飛ばす（STEP0・7は除く）", size=10)
-label("注記2", 1.05, 4.78, 5.0, 0.3, "※STEP1・2は既存情報（社内含む）で立てる", size=10)
-label("注記3", 1.05, 5.06, 5.0, 0.3, "※STEP2後・STEP6後にIPL担当が確認（確認ポイント①②）", size=10)
-
-ly = 6.55
-poly("凡例_進む", [(0.4, ly + 0.12), (1.1, ly + 0.12)], color=DK, dash=False, width=1.75)
-label("凡例_進む_t", 1.2, ly, 1.0, 0.28, "進む", size=10)
-poly("凡例_戻る", [(2.1, ly + 0.12), (2.8, ly + 0.12)], color=AMBER, dash=True)
-label("凡例_戻る_t", 2.9, ly, 2.2, 0.28, "戻る（フィードバック）", size=10)
-poly("凡例_提案", [(5.1, ly + 0.12), (5.8, ly + 0.12)], color=GRAY, dash=True)
-label("凡例_提案_t", 5.9, ly, 3.6, 0.28, "提案・任意（共有済みの図にはない線を含む）", size=10)
+label("注記1", 7.05, 5.55, 5.8, 0.26, "※STEP1・2は既存情報（社内含む）で立てる", size=10)
+label("注記2", 7.05, 5.83, 5.8, 0.26, "※IPL担当の確認：①STEP3の後（調べ始める前）②STEP7の後（決める前）", size=10)
+label("注記3", 7.05, 6.11, 5.8, 0.26, "※振り返り（学習・標準化）はSTEP8の最後に行う", size=10)
+ly = 6.62
+poly("凡例_進む", [(0.85, ly + 0.12), (1.55, ly + 0.12)], color=DK, dash=False, width=1.75)
+label("凡例_進む_t", 1.65, ly, 1.0, 0.26, "プロセス", size=10)
+poly("凡例_戻る", [(2.7, ly + 0.12), (3.4, ly + 0.12)], color=AMBER, dash=True)
+label("凡例_戻る_t", 3.5, ly, 2.2, 0.26, "フィードバック", size=10)
+poly("凡例_提案", [(5.0, ly + 0.12), (5.7, ly + 0.12)], color=GRAY, dash=True)
+label("凡例_提案_t", 5.8, ly, 4.2, 0.26, "提案・任意（共有済みの図にはない線を含む）", size=10)
 
 prs.save(dst)
 print("saved", dst)

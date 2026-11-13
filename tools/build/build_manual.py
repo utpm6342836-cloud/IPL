@@ -27,7 +27,7 @@ def clean(t):
 
 part1 = ["docs/00_はじめに.md", "docs/01_全体像.md"] + ["docs/steps/" + f for f in sorted(os.listdir("docs/steps"))]
 part2 = ["docs/90_発明塾手法との対応.md", "docs/91_呼び方の決め方.md", "docs/92_フロー検証の進め方.md", "docs/93_体制・品質・蓄積の論点.md", "docs/99_出典と改訂履歴.md"]
-md = ['---', 'title: "IPL標準フロー 手順書"', 'subtitle: "事業・研究の一人ひとりが自らIPランドスケープを進めるために　v1.1（たたき台）"',
+md = ['---', 'title: "IPL標準フロー 手順書"', 'subtitle: "事業・研究の一人ひとりが自らIPランドスケープを進めるために　v1.2（たたき台）"',
       'date: "2026年11月"', 'lang: ja-JP', 'toc-title: "目次"', '---', '', '# 第1部　利用者向け（事業・研究の担当者）', '']
 md += [clean(open(p, encoding="utf-8").read()) + "\n" for p in part1]
 md += ["# 第2部　標準化チーム・IPL担当向け（付録）", ""]
@@ -55,6 +55,6 @@ for p in d.paragraphs:
         if seen == 1: seen = 2
         else: p.paragraph_format.page_break_before = True
 u = OxmlElement("w:updateFields"); u.set(qn("w:val"), "true"); d.settings.element.append(u)
-d.core_properties.title = "IPL標準フロー 手順書 v1.1"
+d.core_properties.title = "IPL標準フロー 手順書 v1.2"
 d.save(out)
 print("saved", out)
