@@ -48,7 +48,7 @@ STEP の名前と番号は、社内で共有するフロー図（2026-11-13 版�
 | --- | --- | --- |
 | [deliverables/IPL標準フロー_説明資料_v1.2.pptx](deliverables/IPL標準フロー_説明資料_v1.2.pptx) | 説明会用のスライド（19枚、発表者メモ付き）。4枚目がフローチャートの正本 | tools/build/deck.js → tools/build/flow.py |
 | [deliverables/IPL標準フロー_手順書_v1.2.docx](deliverables/IPL標準フロー_手順書_v1.2.docx) | 文書として残す手順書（第1部 利用者向け、第2部 付録）。SharePoint・Copilot Studio のナレッジにも使える | tools/build/build_manual.py |
-| [deliverables/IPL標準フロー_ワークシート集_v1.2.xlsx](deliverables/IPL標準フロー_ワークシート集_v1.2.xlsx) | 各STEPで記入するシート（17シート、選択リスト付き）。案件ごとにコピーして使う | tools/build/workbook.py |
+| [deliverables/IPL標準フロー_ワークシート集_v1.2.xlsx](deliverables/IPL標準フロー_ワークシート集_v1.2.xlsx) | 各STEPで記入するシート（19シート、選択リスト付き）。案件ごとにコピーして使う | tools/build/workbook.py |
 | [deliverables/IPL標準フロー_修正リスト.xlsx](deliverables/IPL標準フロー_修正リスト.xlsx) | 手順書などへの修正案を誰でも書き込める一覧（SharePoint に置いて共同編集）。判断結果と理由を残し、同じ議論のくり返しを防ぐ | tools/build/revision_list.py |
 | [deliverables/IPL標準フロー_推進計画_2026年度.xlsx](deliverables/IPL標準フロー_推進計画_2026年度.xlsx) | 今年度末までの推進計画（週単位のガントチャート）、マイルストーンと進める条件、ヒアリング計画と質問、リスク | tools/build/plan.py |
 | [deliverables/IPL標準フロー_IPL担当_相談ログ.xlsx](deliverables/IPL標準フロー_IPL担当_相談ログ.xlsx) | IPL担当が受けた相談の記録とSTEP別の自動集計（知見の回収用） | tools/build/consult_log.py |
