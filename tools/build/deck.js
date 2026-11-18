@@ -117,6 +117,35 @@ idea.forEach((w, i) => {
 s.addText("各STEPは「必須」だけで進められる。「観点」は、必要なときにエージェントが1つずつ声をかける", { x: 0.6, y: 5.55, w: 12.1, h: 0.6, fontSize: 15, italic: true, color: C.accent3, margin: 0, isTextBox: true, objectName: "idea_note" });
 s.addNotes("検証ループからSTEP0には戻しません。お題そのものに関わる疑問が出ても、分かったことに結論を出して意思決定し、次の周回に回します。");
 
+// ---------- 4c 4つの基準
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "全体の流れ" });
+title(s, "4つの基準で、仮説から検証・判断までつなぐ");
+const H = (t) => ({ text: t, options: { bold: true, color: C.background1, fill: { color: C.text2 } } });
+const crit = [
+  [H("基準"), H("問うこと"), H("STEP1・2 仮説"), H("STEP4〜7 確かめる証拠")],
+  ["売れる", "本当の課題（死活問題）か。ファーストユーザー（最初にお金を払う人）は誰か", "困りごと、お金を払う人", "ヒアリング、顧客の公開情報。強い証拠は発注・有償評価"],
+  ["勝てる", "競合ができなくて、自社ができることは何か（守れるか）", "代わりのもの、自社が越えられる理由", "特許分析（課題×解決手段×出願人）、競合製品"],
+  ["儲かる", "ファーストユーザーからどう広がるか。市場の規模・成長率", "1社分の売上、次に広がる顧客", "顧客の数・使用量、統計。市場規模は上限の確認"],
+  ["できそう", "作れるか、規制を越えられるか、資源はあるか", "性能・量産・規制・人", "社内評価、試作、法令・認証の要件"],
+];
+s.addTable(crit, { x: 0.6, y: 1.45, w: 12.1, colW: [1.4, 4.0, 2.9, 3.8], rowH: [0.5, 0.95, 0.95, 0.95, 0.95], fontSize: 14, color: C.text1, border: { type: "solid", pt: 0.75, color: "C9D6DC" }, valign: "middle", objectName: "crit_table" });
+s.addText("1枚の「仮説検証シート」を、STEP1から8まで同じ行の右側に書き足していく（仮説 → 確かめるか → 調べ方 → 結果・判定 → 判断）", { x: 0.6, y: 6.1, w: 12.1, h: 0.6, fontSize: 15, bold: true, color: C.text2, margin: 0, isTextBox: true, objectName: "crit_note" });
+s.addNotes("市場規模・成長率は上限と追い風の確認に使い、自社の売上の根拠にはしません。儲かるの中心は、ファーストユーザーからどう広がるかです。");
+
+// ---------- 4d 目的別の読み替え
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "全体の流れ" });
+title(s, "目的が変わっても、4つの基準は読み替えて使える");
+const yomi = [
+  [H("基準"), H("顧客・市場の探索"), H("出願の戦略")],
+  ["売れる", "その用途・顧客に本当の課題があるか。最初にお金を払う顧客は誰か", "権利にしたい発明を使う製品が、顧客に価値を認められるか（事業で実際に使うか）"],
+  ["勝てる", "競合・代わりのものでは解けず、自社なら解けるか", "他社より先に、広く避けにくい権利が取れるか。競合の出願より先に手を打てるか"],
+  ["儲かる", "ファーストユーザーから似た顧客へどう広がるか。用途の市場規模・成長率", "権利で守れる売上・ライセンス収入。どの国・地域に出すか"],
+  ["できそう", "自社で作れるか、規制・認証を越えられるか", "権利になる見込み、侵害を見つけられるか、出願・維持の費用（最終判断は弁理士・知財部門）"],
+];
+s.addTable(yomi, { x: 0.6, y: 1.45, w: 12.1, colW: [1.4, 5.0, 5.7], rowH: [0.5, 0.95, 0.95, 0.95, 0.95], fontSize: 14, color: C.text1, border: { type: "solid", pt: 0.75, color: "C9D6DC" }, valign: "middle", objectName: "yomi_table" });
+s.addText("研究テーマ選び・組む相手探しの読み替えは、手順書「4つの基準」とワークシート集を参照", { x: 0.6, y: 6.1, w: 12.1, h: 0.5, fontSize: 14, italic: true, color: C.accent3, margin: 0, isTextBox: true, objectName: "yomi_note" });
+s.addNotes("出願の戦略でも、FTO（他社の特許を侵害しないか）はこのフローでは判断しません。");
+
 // ---------- 5 共通ルール
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "全体の流れ" });
 title(s, "全STEPで守るのは3つだけ");
